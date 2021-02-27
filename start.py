@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
-#git_test
+
+
+#      WIR SIND HIER !!!
+#  WAS MUSSEN WIR MACHEN ??
+#     ERROR HANDLING
+#         POPUPs
+#      SAUBEREN CODE
+
+
 import face_recognition as frc
 import os
 import cv2
