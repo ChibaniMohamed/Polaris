@@ -59,10 +59,15 @@ class Ui_MainWindow(object):
 
         self.tabWidget.setStyleSheet("")
         self.tabWidget.setObjectName("tabWidget")
-        self.tab_2 = QtWidgets.QWidget()
 
-        self.tab_2.setStyleSheet("#tab_2{border-image:url('./src/images/hud_n.png');background-attachment: fixed;}")
+        self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
+
+        self.tab_22 = QtWidgets.QWidget(self.tab_2)
+        self.tab_22.setGeometry(QtCore.QRect(0, 0, 1400,720))
+        self.tab_22.setObjectName("tab_22")
+        self.tab_22.setStyleSheet("#tab_22{border-image:url('./src/images/hud_n.png');background-attachment: fixed;}")
+
 
         self.tabWidget.addTab(self.tab_2, "")
         self.tab = QtWidgets.QWidget()
@@ -217,6 +222,8 @@ class Ui_MainWindow(object):
         self.plainTextEdit_444.setPlaceholderText("Residence Address")
 
 
+
+
         self.frame = QtWidgets.QFrame(self.tab_2)
         self.frame.setGeometry(QtCore.QRect(1030, 50, 231, 231))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -287,13 +294,13 @@ class Ui_MainWindow(object):
 
         self.frame_err.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_err.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.shadow_frame_err = QtWidgets.QGraphicsDropShadowEffect(self.frame_err,blurRadius=20,xOffset=1,yOffset=1,color=QtGui.QColor(255, 72, 0))
+        self.shadow_frame_err = QtWidgets.QGraphicsDropShadowEffect(self.frame_err,blurRadius=30,xOffset=1,yOffset=1,color=QtGui.QColor(222, 18, 21))
         self.frame_err.setGraphicsEffect(self.shadow_frame_err)
 
         self.label_err = QtWidgets.QLabel(self.frame_err)
         #self.label_err.setGeometry(QtCore.QRect(75, 80, 50, 50))
         self.label_err.setObjectName("label_err")
-        self.label_err.setStyleSheet("#label_err{background:transparent;color:rgba(255, 72, 0,0.9)}")
+        self.label_err.setStyleSheet("#label_err{background:transparent;color:rgba(255, 28, 51,0.9)}")
 
 
         self.frame_22 = QtWidgets.QFrame(self.frame2)
@@ -443,6 +450,39 @@ class Ui_MainWindow(object):
         self.pushButton_2.setShortcut("")
         self.pushButton_2.setCheckable(False)
 
+        self.popup = QtWidgets.QFrame(self.tab_2)
+        #self.popup.setGeometry(QtCore.QRect(0,0,20,20))
+        self.popup.setObjectName("popup")
+        self.popup.setStyleSheet("#popup{background:transparent}")
+        self.popup.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.popup.setFrameShadow(QtWidgets.QFrame.Raised)
+
+        self.popup_icon_frame = QtWidgets.QFrame(self.popup)
+        self.popup_icon_frame.setObjectName("popup_icon_frame")
+        self.popup_icon_frame.setStyleSheet("#popup_icon_frame{background:transparent}")
+        self.popup_icon_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.popup_icon_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+
+        self.popup_text_frame = QtWidgets.QLabel(self.popup)
+        self.popup_text_frame.setObjectName("popup_text_frame")
+        self.popup_text_frame.setStyleSheet("#popup_text_frame{background:transparent}")
+        self.popup_text_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.popup_text_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+
+        self.popup_remove = QtWidgets.QPushButton(self.popup)
+        self.popup_remove.setObjectName("popup_remove")
+        self.popup_remove.setStyleSheet("#popup_remove{background:transparent}")
+        self.popup_remove.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.popup_remove.setMouseTracking(True)
+        self.popup_remove.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.popup_remove.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.popup_remove.setAutoFillBackground(False)
+        self.popup_remove.clicked.connect(self.popup_remove_func)
+        self.popup_remove.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.popup_remove.setShortcut("")
+        self.popup_remove.setCheckable(False)
+
+
         self.tabWidget.addTab(self.tab, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -544,6 +584,7 @@ class Ui_MainWindow(object):
         self.label2.setText(f"{value1} %")
     def img_select(self):
         global path
+        path = None
         path = QtWidgets.QFileDialog.getOpenFileName()
         #self.reload
         if path != None and path[0] != "":
@@ -563,6 +604,7 @@ class Ui_MainWindow(object):
 
 
     def prc(self):
+
         if path != None and path[0] != "":
             self.sig = External()
             self.sig.signal.connect(self.load)
@@ -573,6 +615,86 @@ class Ui_MainWindow(object):
             Thread(target = self.process).start()
         else:
            print("Please select an image")
+           self.popup_error()
+
+
+    def popup_error(self):
+        self.popup.show()
+        blured_elements = [self.upload2,self.frame,self.frame2,self.upload,self.remove,self.tab_22]
+        for elements in blured_elements:
+            self.blur_effect = QtWidgets.QGraphicsBlurEffect(elements)
+            self.blur_effect.setBlurRadius(7)
+            elements.setGraphicsEffect(self.blur_effect)
+
+        self.upload2.setEnabled(False)
+        self.remove.setEnabled(False)
+        self.upload.setEnabled(False)
+
+        self.popup.setGeometry(QtCore.QRect(500,200,300,150))
+        self.popup.setStyleSheet("#popup{background-color:rgba(110, 0, 0,0.3);border:1px solid red;border-top-right-radius:10px;border-bottom-left-radius:10px;}")
+
+        self.popup_shadow = QtWidgets.QGraphicsDropShadowEffect(self.popup,blurRadius=60,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
+        self.popup.setGraphicsEffect(self.popup_shadow)
+
+        self.popup_icon_frame.setGeometry(QtCore.QRect(110,10,80,80))
+        self.popup_icon_frame.setStyleSheet("#popup_icon_frame{background:transparent;border-image:url('./src/images/image(4).png')}")
+
+        self.popup_icon_frame_shadow = QtWidgets.QGraphicsDropShadowEffect(self.popup_icon_frame,blurRadius=5,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
+        self.popup_icon_frame.setGraphicsEffect(self.popup_icon_frame_shadow)
+
+        id = QtGui.QFontDatabase.addApplicationFont("./src/fonts/neuropolitical rg.ttf")
+        font_popup = QtGui.QFontDatabase.applicationFontFamilies(id)[0]
+        popup_font = QtGui.QFont(font_popup)
+        popup_font.setPointSize(10)
+        popup_font.setBold(False)
+        popup_font.setItalic(False)
+        popup_font.setWeight(30)
+
+        self.popup_text_frame.setGeometry(QtCore.QRect(47,80,300,50))
+        self.popup_text_frame.setStyleSheet("#popup_text_frame{background:transparent;color:rgb(255, 28, 51)}")
+        self.popup_text_frame.setText("Please select an image")
+        self.popup_text_frame.setFont(popup_font)
+
+        self.popup_text_frame_shadow = QtWidgets.QGraphicsDropShadowEffect(self.popup_text_frame,blurRadius=5,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
+        self.popup_text_frame.setGraphicsEffect(self.popup_text_frame_shadow)
+
+        self.popup_remove.setGeometry(QtCore.QRect(282,8,10,10))
+        self.popup_remove.setStyleSheet("#popup_remove{background:transparent;border-image:url('./src/images/image(6).png')}")
+
+        self.popup_remove_shadow = QtWidgets.QGraphicsDropShadowEffect(self.popup_remove,blurRadius=5,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
+        self.popup_remove.setGraphicsEffect(self.popup_remove_shadow)
+
+
+    def popup_remove_func(self):
+
+        self.popup.hide()
+
+        blured_elements = [self.upload2,self.frame,self.frame2,self.upload,self.remove,self.tab_22]
+        for elements in blured_elements:
+            self.blur_effect.setEnabled(False)
+            elements.setGraphicsEffect(self.blur_effect)
+
+
+        self.shadow1 = QtWidgets.QGraphicsDropShadowEffect(self.upload2,blurRadius=20,xOffset=1,yOffset=1)
+        self.upload2.setGraphicsEffect(self.shadow1)
+
+        self.shadow1_ = QtWidgets.QGraphicsDropShadowEffect(self.remove,blurRadius=20,xOffset=1,yOffset=1)
+        self.remove.setGraphicsEffect(self.shadow1_)
+
+        self.shadow2 = QtWidgets.QGraphicsDropShadowEffect(self.upload,blurRadius=40,xOffset=1,yOffset=1,color=QtGui.QColor(7, 179, 150))
+        self.upload.setGraphicsEffect(self.shadow2)
+
+        self.shadow_frame = QtWidgets.QGraphicsDropShadowEffect(self.frame,blurRadius=20,xOffset=1,yOffset=1,color=QtGui.QColor(0, 255, 98))
+        self.frame.setGraphicsEffect(self.shadow_frame)
+
+        self.shadow_frame2 = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=20,xOffset=1,yOffset=1,color=QtGui.QColor(0, 221, 255))
+        self.frame2.setGraphicsEffect(self.shadow_frame2)
+
+        self.upload2.setEnabled(True)
+        self.remove.setEnabled(True)
+        self.upload.setEnabled(True)
+
+
 
     def process(self):
 
@@ -602,16 +724,16 @@ class Ui_MainWindow(object):
                 self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
                 self.label.setText("")
                 self.label2.setText("")
-                self.frame2.setGeometry(QtCore.QRect(1070, 370, 151, 151))
+                self.frame2.setGeometry(QtCore.QRect(1070, 370, 150, 150))
 
 
 
                 #self.label_face.setGeometry(QtCore.QRect(0,0,280,250))
                 self.label_err.setGeometry(QtCore.QRect(0,0,400,50))
                 self.label_err.setText("FACE DOESN'T EXIST")
-                self.frame2.setStyleSheet("#frame2{background:transparent;border-image:url('./src/images/warning.png');}")
+                self.frame2.setStyleSheet("#frame2{background:transparent;border-image:url('./src/images/image(4).png');}")
                 self.label_err.setFont(font)
-                self.shadow_red = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=10,xOffset=0,yOffset=0,color=QtGui.QColor(255, 72, 0))
+                self.shadow_red = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=30,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
                 self.frame2.setGraphicsEffect(self.shadow_red)
 
 
