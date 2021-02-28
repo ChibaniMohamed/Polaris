@@ -457,6 +457,7 @@ class Ui_MainWindow(object):
 
     def img_select_2(self):
         global path_2
+
         path_2 = QtWidgets.QFileDialog.getOpenFileName()
         if path_2:
          self.id_upload.setGeometry(QtCore.QRect(100, 120, 100, 100))
@@ -544,8 +545,8 @@ class Ui_MainWindow(object):
     def img_select(self):
         global path
         path = QtWidgets.QFileDialog.getOpenFileName()
-        self.reload
-        if path:
+        #self.reload
+        if path != None and path[0] != "":
          img = QtGui.QImage(path[0])
          img_w = img.width()
          img_h = img.height()
@@ -555,89 +556,83 @@ class Ui_MainWindow(object):
             w = 100
          if img_h > 440:
             img_h = 400
-        self.upload.setGeometry(QtCore.QRect(w, 50, img_w, img_h))
-        self.upload.setStyleSheet(str("#upload{border-image:url(")+path[0]+str(");}"))
+         self.upload.setGeometry(QtCore.QRect(w, 50, img_w, img_h))
+         self.upload.setStyleSheet(str("#upload{border-image:url(")+path[0]+str(");}"))
+        else:
+            print("Please select an image")
+
+
     def prc(self):
-        self.sig = External()
-        self.sig.signal.connect(self.load)
-        self.sig1 = External()
-        self.sig1.signal_.connect(self.load_2)
-        Thread(target =self.sig.start()).start()
-        Thread(target = self.sig1.start()).start()
-        Thread(target = self.process).start()
+        if path != None and path[0] != "":
+            self.sig = External()
+            self.sig.signal.connect(self.load)
+            self.sig1 = External()
+            self.sig1.signal_.connect(self.load_2)
+            Thread(target =self.sig.start()).start()
+            Thread(target = self.sig1.start()).start()
+            Thread(target = self.process).start()
+        else:
+           print("Please select an image")
 
     def process(self):
 
+            id = QtGui.QFontDatabase.addApplicationFont("./src/fonts/neuropolitical rg.ttf")
+            fontstr = QtGui.QFontDatabase.applicationFontFamilies(id)[0]
 
-        print(path)
+            font = QtGui.QFont(fontstr)
+            font.setPointSize(14)
+            font.setBold(False)
+            font.setItalic(False)
+            font.setWeight(50)
+            style = '''#upload{background-size:img_w img_h;background-image:url('./src/images/id.jpeg');}'''
 
+            Thread(target = start.load(path[0])).start()
 
+            start.start(path[0])
+            self.lab.setStyleSheet("#card{border-image:url('./src/images/id2_.png');}")
+            start.search(path[0])
+            time.sleep(0.5)
+            err_id = start.id_card()
+            if err_id == False:
+                print("doesn't match any face")
 
-
-
-
-
-        # WE'RE HERE !!!!!!!!
-        # Add a remove button to delete previous result
-        # Change id card theme , background transparency
-
-
-
-        id = QtGui.QFontDatabase.addApplicationFont("./src/fonts/neuropolitical rg.ttf")
-        fontstr = QtGui.QFontDatabase.applicationFontFamilies(id)[0]
-
-        font = QtGui.QFont(fontstr)
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        style = '''#upload{background-size:img_w img_h;background-image:url('./src/images/id.jpeg');}'''
-
-        Thread(target = start.load(path[0])).start()
-
-        start.start(path[0])
-        self.lab.setStyleSheet("#card{border-image:url('./src/images/id2_.png');}")
-        start.search(path[0])
-        time.sleep(0.5)
-        err_id = start.id_card()
-        if err_id == False:
-            print("doesn't match any face")
-
-            self.frame.setStyleSheet(u"#frame{background:transparent}")
-            self.frame2.setStyleSheet(u"#frame2{background:transparent}")
-            self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
-            self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
-            self.label.setText("")
-            self.label2.setText("")
-            self.frame2.setGeometry(QtCore.QRect(1070, 370, 151, 151))
+                self.frame.setStyleSheet(u"#frame{background:transparent}")
+                self.frame2.setStyleSheet(u"#frame2{background:transparent}")
+                self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
+                self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
+                self.label.setText("")
+                self.label2.setText("")
+                self.frame2.setGeometry(QtCore.QRect(1070, 370, 151, 151))
 
 
 
-            #self.label_face.setGeometry(QtCore.QRect(0,0,280,250))
-            self.label_err.setGeometry(QtCore.QRect(0,0,400,50))
-            self.label_err.setText("FACE DOESN'T EXIST")
-            self.frame2.setStyleSheet("#frame2{background:transparent;border-image:url('./src/images/warning.png');}")
-            self.label_err.setFont(font)
-            self.shadow_red = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=10,xOffset=0,yOffset=0,color=QtGui.QColor(255, 72, 0))
-            self.frame2.setGraphicsEffect(self.shadow_red)
+                #self.label_face.setGeometry(QtCore.QRect(0,0,280,250))
+                self.label_err.setGeometry(QtCore.QRect(0,0,400,50))
+                self.label_err.setText("FACE DOESN'T EXIST")
+                self.frame2.setStyleSheet("#frame2{background:transparent;border-image:url('./src/images/warning.png');}")
+                self.label_err.setFont(font)
+                self.shadow_red = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=10,xOffset=0,yOffset=0,color=QtGui.QColor(255, 72, 0))
+                self.frame2.setGraphicsEffect(self.shadow_red)
 
 
-        else:
+            else:
 
-         print("done")
+             print("done")
 
-         self.lab2.setStyleSheet("#card2{background:transparent;border-image:url('./src/images/id2.png');}")
-         self.frame.setStyleSheet(u"#frame{background:transparent}")
-         self.frame2.setStyleSheet(u"#frame2{background:transparent}")
-         self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
-         self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
-         self.label.setText("")
-         self.label2.setText("")
+             self.lab2.setStyleSheet("#card2{background:transparent;border-image:url('./src/images/id2.png');}")
+             self.frame.setStyleSheet(u"#frame{background:transparent}")
+             self.frame2.setStyleSheet(u"#frame2{background:transparent}")
+             self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
+             self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
+             self.label.setText("")
+             self.label2.setText("")
 
 
 
 
     def reload(self):
+        global path
+        path = None
         self.lab2.setStyleSheet("#card2{background:transparent;}")
         self.lab.setStyleSheet("#card{background:transparent;}")
         self.upload.setGeometry(QtCore.QRect(270, 20, 355, 350))
