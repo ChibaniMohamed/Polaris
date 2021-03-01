@@ -249,7 +249,11 @@ class Ui_MainWindow(object):
         self.shadow_label = QtWidgets.QGraphicsDropShadowEffect(self.label,blurRadius=20,xOffset=1,yOffset=1,color=QtGui.QColor(0, 255, 8))
         self.label.setGraphicsEffect(self.shadow_label)
 
-
+        self.lab2 = QtWidgets.QLabel(self.tab_2)
+        self.lab2.setEnabled(True)
+        self.lab2.setObjectName("card2")
+        self.lab2.setGeometry(QtCore.QRect(910, 355, 470, 300))
+        self.lab2.setStyleSheet("#card2{background:transparent;}")
 
         self.frame2 = QtWidgets.QFrame(self.tab_2)
         self.frame2.setGeometry(QtCore.QRect(1030, 370, 231, 231))
@@ -336,11 +340,7 @@ class Ui_MainWindow(object):
         self.lab.setGeometry(QtCore.QRect(910, 20, 470, 300))
         self.lab.setStyleSheet("#card{background:transparent;}")
 
-        self.lab2 = QtWidgets.QLabel(self.tab_2)
-        self.lab2.setEnabled(True)
-        self.lab2.setObjectName("card2")
-        self.lab2.setGeometry(QtCore.QRect(910, 335, 470, 300))
-        self.lab2.setStyleSheet("#card2{background:transparent;}")
+
 
 
         self.upload = QtWidgets.QPushButton(self.tab_2)
@@ -497,8 +497,11 @@ class Ui_MainWindow(object):
 
     def img_select_2(self):
         global path_2
+        file_select = QtWidgets.QFileDialog()
+        filters = "Image files (*.jpg *.png *jpeg)"
+        path_2 = QtWidgets.QFileDialog.getOpenFileName(file_select,"Select an image","./",filters)
 
-        path_2 = QtWidgets.QFileDialog.getOpenFileName()
+
         if path_2:
          self.id_upload.setGeometry(QtCore.QRect(100, 120, 100, 100))
          self.id_upload.setStyleSheet(str("#id_upload{border-image:url('")+path_2[0]+str("');border-radius:5px}"))
@@ -584,8 +587,10 @@ class Ui_MainWindow(object):
         self.label2.setText(f"{value1} %")
     def img_select(self):
         global path
+        file_select = QtWidgets.QFileDialog()
+        filters = "Image files (*.jpg *.png *jpeg)"
         path = None
-        path = QtWidgets.QFileDialog.getOpenFileName()
+        path = QtWidgets.QFileDialog.getOpenFileName(file_select,"Select an image","./",filters)
         #self.reload
         if path != None and path[0] != "":
          img = QtGui.QImage(path[0])
@@ -611,7 +616,9 @@ class Ui_MainWindow(object):
             self.sig1 = External()
             self.sig1.signal_.connect(self.load_2)
             Thread(target =self.sig.start()).start()
+            self.lab.setStyleSheet("#card{background-color:rgba(0, 133, 57,0.2);border:1px solid green;border-top-right-radius:10px;border-bottom-left-radius:10px;}")
             Thread(target = self.sig1.start()).start()
+
             Thread(target = self.process).start()
         else:
            print("Please select an image")
@@ -709,9 +716,12 @@ class Ui_MainWindow(object):
             style = '''#upload{background-size:img_w img_h;background-image:url('./src/images/id.jpeg');}'''
 
             Thread(target = start.load(path[0])).start()
-
+            self.lab2.setStyleSheet("#card2{background-color:rgba(0, 124, 133,0.2);border:1px solid rgb(0, 179, 255);border-top-right-radius:10px;border-bottom-left-radius:10px;}")
+            self.lab2_shadow_blue = QtWidgets.QGraphicsDropShadowEffect(self.lab2,blurRadius=60,xOffset=0,yOffset=0,color=QtGui.QColor(0, 70, 99))
+            self.lab2.setGraphicsEffect(self.lab2_shadow_blue)
             start.start(path[0])
             self.lab.setStyleSheet("#card{border-image:url('./src/images/id2_.png');}")
+
             start.search(path[0])
             time.sleep(0.5)
             err_id = start.id_card()
@@ -731,6 +741,10 @@ class Ui_MainWindow(object):
                 #self.label_face.setGeometry(QtCore.QRect(0,0,280,250))
                 self.label_err.setGeometry(QtCore.QRect(0,0,400,50))
                 self.label_err.setText("FACE DOESN'T EXIST")
+                self.lab2.setStyleSheet("#card2{background-color:rgba(110, 0, 0,0.2);border:1px solid red;border-top-right-radius:10px;border-bottom-left-radius:10px;}")
+                self.lab2_shadow = QtWidgets.QGraphicsDropShadowEffect(self.lab2,blurRadius=60,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
+                self.lab2.setGraphicsEffect(self.lab2_shadow)
+
                 self.frame2.setStyleSheet("#frame2{background:transparent;border-image:url('./src/images/image(4).png');}")
                 self.label_err.setFont(font)
                 self.shadow_red = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=30,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
