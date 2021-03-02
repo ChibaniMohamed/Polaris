@@ -18,6 +18,7 @@ from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 import start
 from threading import Thread
 import time
+from start import loading
 import json
 from PIL import *
 import os
@@ -31,9 +32,12 @@ class External(QtCore.QThread):
     def run(self):
         count = 0
         while count < limite:
-            count +=1
+            count += 1
             time.sleep(0.01)
             self.signal.emit(count)
+
+
+
 
         count = 0
         while count < limite:
@@ -457,6 +461,11 @@ class Ui_MainWindow(object):
         self.popup.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.popup.setFrameShadow(QtWidgets.QFrame.Raised)
 
+        self.popup_remove = QtWidgets.QPushButton(self.popup)
+        self.popup_remove.setGeometry(QtCore.QRect(0,0,0,0))
+        self.popup_remove.setObjectName("popup_remove")
+        self.popup_remove.setStyleSheet("#popup_remove{background:transparent}")
+
         self.popup_icon_frame = QtWidgets.QFrame(self.popup)
         self.popup_icon_frame.setObjectName("popup_icon_frame")
         self.popup_icon_frame.setStyleSheet("#popup_icon_frame{background:transparent}")
@@ -469,18 +478,8 @@ class Ui_MainWindow(object):
         self.popup_text_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.popup_text_frame.setFrameShadow(QtWidgets.QFrame.Raised)
 
-        self.popup_remove = QtWidgets.QPushButton(self.popup)
-        self.popup_remove.setObjectName("popup_remove")
-        self.popup_remove.setStyleSheet("#popup_remove{background:transparent}")
-        self.popup_remove.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.popup_remove.setMouseTracking(True)
-        self.popup_remove.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.popup_remove.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.popup_remove.setAutoFillBackground(False)
-        self.popup_remove.clicked.connect(self.popup_remove_func)
-        self.popup_remove.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.popup_remove.setShortcut("")
-        self.popup_remove.setCheckable(False)
+
+
 
 
         self.tabWidget.addTab(self.tab, "")
@@ -558,10 +557,9 @@ class Ui_MainWindow(object):
         self.styleSheet = "#frame{background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:{p1} rgb(0, 255, 98), stop:{p2} rgba(16, 145, 196, 20));border-radius:115;}"
 
         self.prog = (self.value)/100
-
         self.p1 = str(self.prog-0.0001)
         self.p2 = str(self.prog)
-
+        print(self.value)
         self.newStylesheet = self.styleSheet.replace("{p1}", self.p1).replace("{p2}", self.p2)
         self.label_noimg2.setText("")
         self.label_noimg.setText("")
@@ -571,7 +569,7 @@ class Ui_MainWindow(object):
         self.label.setText(f"{value} %")
     def load_2(self,value1):
         self.value1 = value1
-
+        print(value1)
         self.styleSheet1 = "#frame2{background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:{p11} rgb(0, 221, 255), stop:{p22} rgba(16, 145, 196, 20));border-radius:115;}"
 
         self.prog1 = (self.value1)/100
@@ -627,7 +625,8 @@ class Ui_MainWindow(object):
 
     def popup_error(self):
         self.popup.show()
-        blured_elements = [self.upload2,self.frame,self.frame2,self.upload,self.remove,self.tab_22]
+
+        blured_elements = [self.upload2,self.frame,self.frame2,self.upload,self.remove,self.lab,self.lab2,self.label_err,self.tab_22]
         for elements in blured_elements:
             self.blur_effect = QtWidgets.QGraphicsBlurEffect(elements)
             self.blur_effect.setBlurRadius(7)
@@ -642,6 +641,18 @@ class Ui_MainWindow(object):
 
         self.popup_shadow = QtWidgets.QGraphicsDropShadowEffect(self.popup,blurRadius=60,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
         self.popup.setGraphicsEffect(self.popup_shadow)
+
+
+        self.popup_remove.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.popup_remove.setMouseTracking(True)
+        self.popup_remove.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.popup_remove.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.popup_remove.setAutoFillBackground(False)
+        self.popup_remove.clicked.connect(self.popup_remove_func)
+        self.popup_remove.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.popup_remove.setShortcut("")
+        self.popup_remove.setCheckable(False)
+
 
         self.popup_icon_frame.setGeometry(QtCore.QRect(110,10,80,80))
         self.popup_icon_frame.setStyleSheet("#popup_icon_frame{background:transparent;border-image:url('./src/images/image(4).png')}")
@@ -676,7 +687,7 @@ class Ui_MainWindow(object):
 
         self.popup.hide()
 
-        blured_elements = [self.upload2,self.frame,self.frame2,self.upload,self.remove,self.tab_22]
+        blured_elements = [self.upload2,self.frame,self.frame2,self.upload,self.remove,self.lab,self.lab2,self.label_err,self.tab_22]
         for elements in blured_elements:
             self.blur_effect.setEnabled(False)
             elements.setGraphicsEffect(self.blur_effect)
@@ -694,8 +705,8 @@ class Ui_MainWindow(object):
         self.shadow_frame = QtWidgets.QGraphicsDropShadowEffect(self.frame,blurRadius=20,xOffset=1,yOffset=1,color=QtGui.QColor(0, 255, 98))
         self.frame.setGraphicsEffect(self.shadow_frame)
 
-        self.shadow_frame2 = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=20,xOffset=1,yOffset=1,color=QtGui.QColor(0, 221, 255))
-        self.frame2.setGraphicsEffect(self.shadow_frame2)
+        self.shadow_red = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=30,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
+        self.frame2.setGraphicsEffect(self.shadow_red)
 
         self.upload2.setEnabled(True)
         self.remove.setEnabled(True)
@@ -716,14 +727,23 @@ class Ui_MainWindow(object):
             style = '''#upload{background-size:img_w img_h;background-image:url('./src/images/id.jpeg');}'''
 
             Thread(target = start.load(path[0])).start()
+            self.label_err.setText("")
+            self.frame2.setGeometry(QtCore.QRect(1030, 370, 231, 231))
+            self.frame2.setStyleSheet(u"#frame2{background:transparent}")
+            self.shadow_frame2 = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=20,xOffset=1,yOffset=1,color=QtGui.QColor(0, 221, 255))
+            self.frame2.setGraphicsEffect(self.shadow_frame2)
             self.lab2.setStyleSheet("#card2{background-color:rgba(0, 124, 133,0.2);border:1px solid rgb(0, 179, 255);border-top-right-radius:10px;border-bottom-left-radius:10px;}")
             self.lab2_shadow_blue = QtWidgets.QGraphicsDropShadowEffect(self.lab2,blurRadius=60,xOffset=0,yOffset=0,color=QtGui.QColor(0, 70, 99))
             self.lab2.setGraphicsEffect(self.lab2_shadow_blue)
+
+
+
+
             start.start(path[0])
-            self.lab.setStyleSheet("#card{border-image:url('./src/images/id2_.png');}")
+            if self.value == 99 or self.value == 100:
+             self.lab.setStyleSheet("#card{border-image:url('./src/images/id2_.png');}")
 
             start.search(path[0])
-            time.sleep(0.5)
             err_id = start.id_card()
             if err_id == False:
                 print("doesn't match any face")
@@ -742,7 +762,7 @@ class Ui_MainWindow(object):
                 self.label_err.setGeometry(QtCore.QRect(0,0,400,50))
                 self.label_err.setText("FACE DOESN'T EXIST")
                 self.lab2.setStyleSheet("#card2{background-color:rgba(110, 0, 0,0.2);border:1px solid red;border-top-right-radius:10px;border-bottom-left-radius:10px;}")
-                self.lab2_shadow = QtWidgets.QGraphicsDropShadowEffect(self.lab2,blurRadius=60,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
+                self.lab2_shadow = QtWidgets.QGraphicsDropShadowEffect(self.lab2,blurRadius=60,xOffset=1,yOffset=1,color=QtGui.QColor(222, 18, 21))
                 self.lab2.setGraphicsEffect(self.lab2_shadow)
 
                 self.frame2.setStyleSheet("#frame2{background:transparent;border-image:url('./src/images/image(4).png');}")
@@ -754,14 +774,16 @@ class Ui_MainWindow(object):
             else:
 
              print("done")
+             if self.value1 == 100:
+              self.lab2.setStyleSheet("#card2{background:transparent;border-image:url('./src/images/id2.png');}")
+              self.frame.setStyleSheet(u"#frame{background:transparent}")
+              self.frame2.setStyleSheet(u"#frame2{background:transparent}")
 
-             self.lab2.setStyleSheet("#card2{background:transparent;border-image:url('./src/images/id2.png');}")
-             self.frame.setStyleSheet(u"#frame{background:transparent}")
-             self.frame2.setStyleSheet(u"#frame2{background:transparent}")
-             self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
-             self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
-             self.label.setText("")
-             self.label2.setText("")
+              self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
+              self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
+              self.label.setText("")
+              self.label2.setText("")
+
 
 
 
@@ -815,4 +837,5 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+
     sys.exit(app.exec_())
