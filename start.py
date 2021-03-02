@@ -19,16 +19,16 @@ import time
 from PIL import ImageFont
 from PIL import ImageDraw
 import argparse
-
-
+loading = 0
 def load(path):
+ global loading
  global input,face,face_l
  input = frc.load_image_file(path)
  face = frc.face_locations(input,model="hog")
  face_l = frc.face_landmarks(input,model="large")
-
+ loading = loading + 20
 def start(path):
-  #LANDMARKS_DETECTION
+ global loading
  for i in face_l:
    chin = i.get("chin")
    left_eyebrow = i.get("left_eyebrow")
@@ -48,6 +48,7 @@ def start(path):
   #FUTURSIC_BOX
  for faces in face:
   (x,y,w,h) = faces
+ loading = loading + 20
  back = Image.open(path)
  foreground = Image.open("./src/images/imageedit_1_2789986383(1).png").convert("RGBA")
  foreground = foreground.resize((int(w-x+(w-x)/3),int(w-x+(w-x)/3)))
@@ -60,6 +61,7 @@ def start(path):
  draw.text((int(h-h/90),int(x-h/4)),"No°:25980",font=font)
  im = cv2.cvtColor(np.array(back),cv2.COLOR_RGB2BGR)
  #LANDMARKS_TRIANGLES
+ loading = loading + 30
  def rect_contains(rect, point) :
     if point[0] < rect[0] :
         return False
@@ -79,7 +81,6 @@ def start(path):
     lfont = 2
     rcircle = 4
  def draw_point(img, p, color ) :
-
 
     cvc = cv2.circle( img, p,rcircle, color, cv2.FILLED, cv2.LINE_AA, 0 )
 
@@ -112,42 +113,36 @@ def start(path):
  #SEARCH
 
 
- if __name__ != '__main__':
+
 
     # Define window names
 
 
     # Turn on animation while drawing triangles
-    animate = True
+ animate = True
 
     # Define colors for drawing.
-    delaunay_color = (25,0,0)
-    points_color = (0, 0, 255)
+ delaunay_color = (25,0,0)
+ points_color = (0, 0, 255)
 
     # Read in the image.
-    img = im
+ img = im
 
     # Keep a copy around
-    img_orig = img.copy();
+ img_orig = img.copy();
 
     # Rectangle to be used with Subdiv2D
-    size = img.shape
-    rect = (0, 0, size[1], size[0])
+ size = img.shape
+ rect = (0, 0, size[1], size[0])
 
     # Create an instance of Subdiv2D
-    subdiv = cv2.Subdiv2D(rect);
-
-    # Create an array of points.
-    # Insert points into subdiv
-    for p in points1 :
-        subdiv.insert(p)
-
-        # Show animation
-        if animate :
-            img_copy = img_orig.copy()
-            # Draw delaunay triangles
-            draw_delaunay( img_copy, subdiv, (255,219,0) );
-            imw,imh,c = img_copy.shape
+ subdiv = cv2.Subdiv2D(rect);
+ for p in points1 :
+    subdiv.insert(p)
+    if animate :
+        img_copy = img_orig.copy()
+        draw_delaunay( img_copy, subdiv, (255,219,0) );
+        imw,imh,c = img_copy.shape
             #plt.imshow(img_copy)
             #plt.show()
 
@@ -155,24 +150,12 @@ def start(path):
 
 
     # Draw points
-    for p in points1 :
-        draw_point(img_copy, p, (255,255,255))
+ for p in points1 :
+  draw_point(img_copy, p, (255,255,255))
+ loading = loading + 30
+ img_cop = cv2.cvtColor(img_copy,cv2.COLOR_BGR2RGB)
+ cv2.imwrite("./src/images/id2_.png",img_copy)
 
-    img_cop = cv2.cvtColor(img_copy,cv2.COLOR_BGR2RGB)
-   #plt.imshow(img_cop)
-    #plt.show()
-    #plt.imshow(img_cop)
-    #plt.show()
-    cv2.imwrite("./src/images/id2_.png",img_copy)
-    '''
-    cv2.imshow("test",img_copy)
-    k = cv2.waitKey(0) & 0xFF
-    if k == ord('q'):
-     cv2.destroyAllWindows()
-    return img_copy,imw,imh
-    '''
- #rect = (0, 0, size[1], size[0])
- #subdiv  = cv2.Subdiv2D(rect);
 
 def search(inp):
  global id_name
