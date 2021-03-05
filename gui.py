@@ -18,7 +18,7 @@ from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 import start
 from threading import Thread
 import time
-from start import loading
+from start import loading,time_tk,limite
 import json
 from PIL import *
 import os
@@ -40,10 +40,18 @@ class External(QtCore.QThread):
 
 
         count = 0
-        while count < limite:
+        while count < start.limite:
+
+            print("count : ",count)
+            print("limite : ",start.limite)
+            print("time list : ",start.time_tk)
+            #print("time taken : ",start.time_tk[count])
+
+            time.sleep(start.time_tk[count])
             count +=1
-            time.sleep(0.0009)
-            self.signal_.emit(count)
+            self.signal_.emit((count/start.limite)*100)
+
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -267,6 +275,14 @@ class Ui_MainWindow(object):
         self.frame2.setStyleSheet(u"#frame2{background:transparent}")
         self.shadow_frame2 = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=20,xOffset=1,yOffset=1,color=QtGui.QColor(0, 221, 255))
         self.frame2.setGraphicsEffect(self.shadow_frame2)
+
+        self.frame2 = QtWidgets.QFrame(self.tab_2)
+        self.frame2.setGeometry(QtCore.QRect(1030, 370, 231, 231))
+        self.frame2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame2.setObjectName("frame2")
+        self.frame2.setStyleSheet(u"#frame2{background:transparent}")
+
         font_noinfo = QtGui.QFont(fontstr)
         font_noinfo.setPointSize(14)
         font_noinfo.setBold(False)
@@ -613,9 +629,11 @@ class Ui_MainWindow(object):
             self.sig.signal.connect(self.load)
             self.sig1 = External()
             self.sig1.signal_.connect(self.load_2)
-            Thread(target =self.sig.start()).start()
+            self.sig.start()
+
+            self.lab2.setStyleSheet("#card2{background:transparent}")
             self.lab.setStyleSheet("#card{background-color:rgba(0, 133, 57,0.2);border:1px solid green;border-top-right-radius:10px;border-bottom-left-radius:10px;}")
-            Thread(target = self.sig1.start()).start()
+
 
             Thread(target = self.process).start()
         else:
@@ -716,6 +734,7 @@ class Ui_MainWindow(object):
 
     def process(self):
 
+            self.sig1.start()
             id = QtGui.QFontDatabase.addApplicationFont("./src/fonts/neuropolitical rg.ttf")
             fontstr = QtGui.QFontDatabase.applicationFontFamilies(id)[0]
 
@@ -726,7 +745,7 @@ class Ui_MainWindow(object):
             font.setWeight(50)
             style = '''#upload{background-size:img_w img_h;background-image:url('./src/images/id.jpeg');}'''
 
-            Thread(target = start.load(path[0])).start()
+            start.load(path[0])
             self.label_err.setText("")
             self.frame2.setGeometry(QtCore.QRect(1030, 370, 231, 231))
             self.frame2.setStyleSheet(u"#frame2{background:transparent}")
@@ -740,49 +759,49 @@ class Ui_MainWindow(object):
 
 
             start.start(path[0])
-            if self.value == 99 or self.value == 100:
-             self.lab.setStyleSheet("#card{border-image:url('./src/images/id2_.png');}")
 
+            self.lab.setStyleSheet("#card{border-image:url('./src/images/id2_.png');}")
             start.search(path[0])
-            err_id = start.id_card()
-            if err_id == False:
-                print("doesn't match any face")
+            if self.value1 == 100:
+             err_id = start.id_card()
+             if err_id == False:
+                    print("doesn't match any face")
 
-                self.frame.setStyleSheet(u"#frame{background:transparent}")
-                self.frame2.setStyleSheet(u"#frame2{background:transparent}")
-                self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
-                self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
-                self.label.setText("")
-                self.label2.setText("")
-                self.frame2.setGeometry(QtCore.QRect(1070, 370, 150, 150))
-
-
-
-                #self.label_face.setGeometry(QtCore.QRect(0,0,280,250))
-                self.label_err.setGeometry(QtCore.QRect(0,0,400,50))
-                self.label_err.setText("FACE DOESN'T EXIST")
-                self.lab2.setStyleSheet("#card2{background-color:rgba(110, 0, 0,0.2);border:1px solid red;border-top-right-radius:10px;border-bottom-left-radius:10px;}")
-                self.lab2_shadow = QtWidgets.QGraphicsDropShadowEffect(self.lab2,blurRadius=60,xOffset=1,yOffset=1,color=QtGui.QColor(222, 18, 21))
-                self.lab2.setGraphicsEffect(self.lab2_shadow)
-
-                self.frame2.setStyleSheet("#frame2{background:transparent;border-image:url('./src/images/image(4).png');}")
-                self.label_err.setFont(font)
-                self.shadow_red = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=30,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
-                self.frame2.setGraphicsEffect(self.shadow_red)
+                    self.frame.setStyleSheet(u"#frame{background:transparent}")
+                    self.frame2.setStyleSheet(u"#frame2{background:transparent}")
+                    self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
+                    self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
+                    self.label.setText("")
+                    self.label2.setText("")
+                    self.frame2.setGeometry(QtCore.QRect(1070, 370, 150, 150))
 
 
-            else:
 
-             print("done")
-             if self.value1 == 100:
-              self.lab2.setStyleSheet("#card2{background:transparent;border-image:url('./src/images/id2.png');}")
-              self.frame.setStyleSheet(u"#frame{background:transparent}")
-              self.frame2.setStyleSheet(u"#frame2{background:transparent}")
+                    #self.label_face.setGeometry(QtCore.QRect(0,0,280,250))
+                    self.label_err.setGeometry(QtCore.QRect(0,0,400,50))
+                    self.label_err.setText("FACE DOESN'T EXIST")
+                    self.label_noinfo.setText("")
+                    self.lab2.setStyleSheet("#card2{background-color:rgba(110, 0, 0,0.2);border:1px solid red;border-top-right-radius:10px;border-bottom-left-radius:10px;}")
+                    self.lab2_shadow = QtWidgets.QGraphicsDropShadowEffect(self.lab2,blurRadius=60,xOffset=1,yOffset=1,color=QtGui.QColor(222, 18, 21))
+                    self.lab2.setGraphicsEffect(self.lab2_shadow)
 
-              self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
-              self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
-              self.label.setText("")
-              self.label2.setText("")
+                    self.frame2.setStyleSheet("#frame2{background:transparent;border-image:url('./src/images/image(4).png');}")
+                    self.label_err.setFont(font)
+                    self.shadow_red = QtWidgets.QGraphicsDropShadowEffect(self.frame2,blurRadius=30,xOffset=0,yOffset=0,color=QtGui.QColor(222, 18, 21))
+                    self.frame2.setGraphicsEffect(self.shadow_red)
+
+
+             else:
+
+                 print("done")
+                 self.lab2.setStyleSheet("#card2{background:transparent;border-image:url('./src/images/id2.png');}")
+                 self.frame.setStyleSheet(u"#frame{background:transparent}")
+                 self.frame2.setStyleSheet(u"#frame2{background:transparent}")
+
+                 self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
+                 self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
+                 self.label.setText("")
+                 self.label2.setText("")
 
 
 
@@ -791,6 +810,7 @@ class Ui_MainWindow(object):
     def reload(self):
         global path
         path = None
+        self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
         self.lab2.setStyleSheet("#card2{background:transparent;}")
         self.lab.setStyleSheet("#card{background:transparent;}")
         self.upload.setGeometry(QtCore.QRect(270, 20, 355, 350))
