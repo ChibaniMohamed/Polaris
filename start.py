@@ -20,6 +20,9 @@ from PIL import ImageFont
 from PIL import ImageDraw
 import argparse
 loading = 0
+limite = 0
+
+time_tk = []
 def load(path):
  global loading
  global input,face,face_l
@@ -160,19 +163,34 @@ def start(path):
 def search(inp):
  global id_name
  id_name = []
- start = time.time()
+ global time_tk
+ time_tk = []
+ global limite
+ limite = len(os.listdir("./data/"))
+
  inp = frc.load_image_file(inp)
  face = frc.face_locations(inp,model="hog")
  enc1 = frc.face_encodings(inp,face)
+
  for files in os.listdir("./data/"):
+  start = time.time()
+
   for np_enc in os.listdir(f"./data/{files}/"):
+      #final = time.time() - start
       if np_enc == "enc.npy":
+
        enc2 = np.load(f"./data/{files}/enc.npy")
        predict = frc.compare_faces(enc1,enc2,0.6)
+
        if str(predict[0]) == "True":
-        final = time.time() - start
         id_name.append(files)
-        result = str(files+" ("+"%.2f" % final+"s"+")")
+  final = time.time() - start
+  time_tk.append(final)
+
+
+
+ #return time_tk
+
 
 
 
