@@ -82,7 +82,7 @@ class Ui_MainWindow(object):
         self.tab_22 = QtWidgets.QWidget(self.tab_2)
         self.tab_22.setGeometry(QtCore.QRect(0, 0, 1400,720))
         self.tab_22.setObjectName("tab_22")
-        self.tab_22.setStyleSheet("#tab_22{border-image:url('./src/images/hud_n.png');background-attachment: fixed;}")
+        self.tab_22.setStyleSheet("#tab_22{border-image:url('./src/images/hud_n-1.png');background-attachment: fixed;}")
 
 
 
@@ -94,7 +94,7 @@ class Ui_MainWindow(object):
         self.tab_11 = QtWidgets.QWidget(self.tab)
         self.tab_11.setGeometry(QtCore.QRect(0, 0, 1400,720))
         self.tab_11.setObjectName("tab_11")
-        self.tab_11.setStyleSheet("#tab_11{border-image:url('./src/images/hud.png');background-attachment: fixed;}")
+        self.tab_11.setStyleSheet("#tab_11{border-image:url('./src/images/hud_.png');background-attachment: fixed;}")
 
 
 
@@ -614,7 +614,6 @@ class Ui_MainWindow(object):
 
         info_list = [first_name,last_name,day,month,year,country,city,gender,job,work_location,num_1,num_2,email,addr]
         for info in info_list:
-            print(info)
             if str(info) != "" and path_2 != None and path_2[0] != "":
 
                  input_error = False
@@ -624,9 +623,9 @@ class Ui_MainWindow(object):
                input_error = True
 
 
-        print(input_error)
+
         if input_error != False:
-            print("Please complete all the informations")
+
             self.popup_error_input_func()
         else:
             img = Image.open(path_2[0])
@@ -647,15 +646,7 @@ class Ui_MainWindow(object):
 
 
 
-            print(first_name)
-            print(last_name)
-            print(str(day)+"/"+str(month)+"/"+str(year))
-            print(str(country)+"/"+str(city))
-            print(gender)
-            print(job)
-            print(str(num_1)+"/"+str(num_2))
-            print(email)
-            print(addr)
+
 
 
     def popup_error_input_func(self):
@@ -774,7 +765,7 @@ class Ui_MainWindow(object):
         self.prog = (self.value)/100
         self.p1 = str(self.prog-0.0001)
         self.p2 = str(self.prog)
-        print(self.value)
+
         self.newStylesheet = self.styleSheet.replace("{p1}", self.p1).replace("{p2}", self.p2)
         self.label_noimg2.setText("")
         self.label_noimg.setText("")
@@ -784,7 +775,7 @@ class Ui_MainWindow(object):
         self.label.setText(f"{value} %")
     def load_2(self,value1):
         self.value1 = value1
-        print(value1)
+
         self.styleSheet1 = "#frame2{background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:{p11} rgb(0, 221, 255), stop:{p22} rgba(16, 145, 196, 20));border-radius:115;}"
 
         self.prog1 = (self.value1)/100
@@ -836,7 +827,7 @@ class Ui_MainWindow(object):
 
             Thread(target = self.process).start()
         else:
-           print("Please select an image")
+
            self.popup_error()
 
 
@@ -953,7 +944,7 @@ class Ui_MainWindow(object):
 
 
             self.start_error = start.start(path[0])
-            print(self.start_error)
+
             if self.start_error == False:
                 self.frame.show()
                 self.frame2.show()
@@ -968,7 +959,7 @@ class Ui_MainWindow(object):
                 err_id = start.id_card()
                 time.sleep(0.5)
                 if err_id == False:
-                        print("doesn't match any face")
+
                         self.label_err_face.setText("")
                         self.popup_icon_err.setStyleSheet("#popup_icon_err{background:transparent;}")
                         self.frame.setStyleSheet(u"#frame{background:transparent}")
@@ -996,7 +987,7 @@ class Ui_MainWindow(object):
 
                 else:
 
-                     print("done")
+
                      self.shadow_frame = QtWidgets.QGraphicsDropShadowEffect(self.frame,blurRadius=20,xOffset=1,yOffset=1,color=QtGui.QColor(0, 255, 98))
                      self.frame.setGraphicsEffect(self.shadow_frame)
 
@@ -1022,7 +1013,7 @@ class Ui_MainWindow(object):
 
 
     def no_faces_error_func(self):
-        print("too many faces")
+
 
         self.label_noinfo.setText("NO INFORMATIONS")
         self.popup_icon_err.setGeometry(QtCore.QRect(170,30,150,150))
@@ -1050,7 +1041,7 @@ class Ui_MainWindow(object):
         self.lab2.setGraphicsEffect(self.lab2_shadow_blue)
 
     def many_faces_error_func(self):
-        print("too many faces")
+
 
         self.label_noinfo.setText("NO INFORMATIONS")
         self.popup_icon_err.setGeometry(QtCore.QRect(170,30,150,150))
@@ -1118,13 +1109,3 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
 
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Tab 1"))
-if __name__ == "__main__":
-    import sys
-
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-
-    sys.exit(app.exec_())

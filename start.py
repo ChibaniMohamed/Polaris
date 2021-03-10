@@ -23,6 +23,9 @@ loading = 0
 limite = 0
 
 time_tk = []
+
+#Load the image
+
 def load(path):
  global loading
  global input,face,face_l
@@ -30,10 +33,11 @@ def load(path):
  face = frc.face_locations(input,model="hog")
  face_l = frc.face_landmarks(input,model="large")
  loading = loading + 20
+
 def start(path):
  global loading
- no_face_error = False
- many_faces_error = False
+ face_errors = False
+
  for i in face_l:
    chin = i.get("chin")
    left_eyebrow = i.get("left_eyebrow")
@@ -45,27 +49,30 @@ def start(path):
    top_lip = i.get("top_lip")
    bottom_lip = i.get("bottom_lip")
    points1 = list()
+
    for points in chin,left_eyebrow,right_eyebrow,nose_bridge,nose_tip,left_eye,right_eye,top_lip,bottom_lip:
      for x in range(0,len(points)):
        x1,y1 = points[x]
        points1.append((x1,y1))
 
-  #FUTURSIC_BOX
  for faces in face:
   (x,y,w,h) = faces
+
  loading = loading + 20
+
  if len(face) == 1 :
+
      back = Image.open(path)
      foreground = Image.open("./src/images/imageedit_1_2789986383(1).png").convert("RGBA")
      foreground = foreground.resize((int(w-x+(w-x)/3),int(w-x+(w-x)/3)))
+
      h1,w1=foreground.size
      back.paste(foreground, (int(h-h/55),int(x-h/55)), foreground)
-     foreground = foreground.resize((int(w-x+(w-x)/3),int(h/4.7)))
-     back.paste(foreground, (int(h-h/20),int(x-h/4)), foreground)
-     draw = ImageDraw.Draw(back)
+
      font = ImageFont.truetype("./src/fonts/neuropolitical rg.ttf", int(w/15))
-     draw.text((int(h-h/90),int(x-h/4)),"No°:25980",font=font)
+
      im = cv2.cvtColor(np.array(back),cv2.COLOR_RGB2BGR)
+
      #LANDMARKS_TRIANGLES
      loading = loading + 30
      def rect_contains(rect, point) :
@@ -113,25 +120,13 @@ def start(path):
                 cv2.line(img, pt3, pt1, delaunay_color, lfont, cv2.LINE_AA, 0)
 
 
-    # Draw voronoi diagram
-
-
-     #SEARCH
-
-
-
-
-        # Define window names
-
-
-        # Turn on animation while drawing triangles
      animate = True
 
-        # Define colors for drawing.
+        # Define colors for drawin
      delaunay_color = (25,0,0)
      points_color = (0, 0, 255)
 
-        # Read in the image.
+
      img = im
 
         # Keep a copy around
@@ -141,7 +136,7 @@ def start(path):
      size = img.shape
      rect = (0, 0, size[1], size[0])
 
-        # Create an instance of Subdiv2D
+
      subdiv = cv2.Subdiv2D(rect);
      for p in points1 :
         subdiv.insert(p)
@@ -149,23 +144,24 @@ def start(path):
             img_copy = img_orig.copy()
             draw_delaunay( img_copy, subdiv, (255,219,0) );
             imw,imh,c = img_copy.shape
-                #plt.imshow(img_copy)
-                #plt.show()
-
-        # Draw delaunay triangles
 
 
         # Draw points
      for p in points1 :
       draw_point(img_copy, p, (255,255,255))
+
      loading = loading + 30
+
      img_cop = cv2.cvtColor(img_copy,cv2.COLOR_BGR2RGB)
      cv2.imwrite("./src/images/id2_.png",img_copy)
+
  elif len(face) == 0:
-     many_faces_error = None
+     face_errors = None
+
  else:
-     many_faces_error = True
- return many_faces_error
+     face_errors = True
+
+ return face_errors
 
 
 def search(inp):
@@ -196,20 +192,13 @@ def search(inp):
   time_tk.append(final)
 
 
-
- #return time_tk
-
-
-
-
-#print(search())
-#start()
+#Create id
 def id_card():
  try:
   im1 = Image.open("./src/images/test.jpg")
   id = Image.open("./data/"+str(id_name[0])+"/"+str(id_name[0])+".jpg").convert("RGBA").resize((200,200))
   id_b = Image.open("./src/images/imageedit_3_5670490135.png")
-  id_b = id_b.resize((132,134))
+  id_b = id_b.resize((132,142))
   id = id.resize((110,110))
   im2 = Image.open("./src/images/id3.png")
   w2,h2 = im2.size
@@ -235,27 +224,3 @@ def id_card():
   im2.save("./src/images/id2.png")
  except:
      return False
-#im2 = Image.open("../id2.png")
-#im2 = im2.rotate(90)
-def get_concat_h_resize(im1, im2, resample=Image.BICUBIC, resize_big_image=True):
-    if im1.height == im2.height:
-        _im1 = im1
-        _im2 = im2
-    elif (((im1.height > im2.height) and resize_big_image) or
-          ((im1.height < im2.height) and not resize_big_image)):
-        _im1 = im1.resize((int(im1.width * im2.height / im1.height), im2.height), resample=resample)
-        _im2 = im2
-    else:
-        _im1 = im1
-        _im2 = im2.resize((int(im2.width * im1.height / im2.height), im1.height), resample=resample)
-    dst = Image.new('RGB', (_im1.width + _im2.width, _im1.height))
-    dst.paste(_im1, (0, 0))
-    dst.paste(_im2, (_im1.width, 0))
-    return dst
-def result():
- res_ = get_concat_h_resize(im1, im2)
- res = cv2.cvtColor(np.array(res_), cv2.COLOR_RGB2BGR)
- #cv2.imshow("test",res)
- #k = cv2.waitKey(0) & 0xFF
- #if k == ord('a'):
-  #cv2.destoyAllWindows()
