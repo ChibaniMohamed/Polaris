@@ -644,7 +644,7 @@ class Ui_MainWindow(object):
 
         blured_elements = [self.tab_11,self.plainTextEdit,self.plainTextEdit_2,self.plainTextEdit_3,self.plainTextEdit_4,self.plainTextEdit_5,
         self.plainTextEdit_6,self.plainTextEdit_9,self.plainTextEdit_10,self.plainTextEdit_11,self.plainTextEdit_55,self.plainTextEdit_111,
-        self.plainTextEdit_222,self.plainTextEdit_333,self.plainTextEdit_444,self.pushButton,self.pushButton_2,self.id_upload,self.gen,self.contact]
+        self.plainTextEdit_222,self.plainTextEdit_333,self.plainTextEdit_444,self.pushButton,self.id_upload,self.gen,self.contact]
         for elements in blured_elements:
             elements.setEnabled(False)
             self.blur_effect_input = QtWidgets.QGraphicsBlurEffect(elements)
@@ -707,7 +707,7 @@ class Ui_MainWindow(object):
 
         blured_elements = [self.tab_11,self.plainTextEdit,self.plainTextEdit_2,self.plainTextEdit_3,self.plainTextEdit_4,self.plainTextEdit_5,self.plainTextEdit_6,
         self.plainTextEdit_9,self.plainTextEdit_10,self.plainTextEdit_11,self.plainTextEdit_55,self.plainTextEdit_111,
-        self.plainTextEdit_222,self.plainTextEdit_333,self.plainTextEdit_444,self.pushButton,self.pushButton_2,self.id_upload,self.gen,self.contact]
+        self.plainTextEdit_222,self.plainTextEdit_333,self.plainTextEdit_444,self.pushButton,self.id_upload,self.gen,self.contact]
         for elements in blured_elements:
             elements.setEnabled(True)
             self.blur_effect_input.setEnabled(False)
@@ -715,7 +715,7 @@ class Ui_MainWindow(object):
 
 
         self.pushButton.setEnabled(True)
-        self.pushButton_2.setEnabled(True)
+        
 
     def popup_remove_func(self):
 
