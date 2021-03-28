@@ -45,7 +45,7 @@
 - **face_recognition** by Adam Geitgey 
 
 ## How to use 🔨
-- First of all we have to install all the required libraries .
+- First of all, we have to install all the required libraries .
 
 - **PyQt5** :
 
