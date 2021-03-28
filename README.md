@@ -41,7 +41,7 @@
 - **Dlib** - C++ Library containing Machine Learning Algorithms
 - **face_recognition** by Adam Geitgey 
 ## How to use
-- First of all we have to install all the required libraries.
+- First of all we have to install all the required libraries .
 
 - **PyQt5** :
 
@@ -67,7 +67,7 @@ pip install numpy
 pip install face_recognition
 ```
 
-- Then clone the repository and run the program .
+- Then, Clone the repository and run the program .
 ```
 git clone https://github.com/ChibaniMohamed/Polaris.git
 
