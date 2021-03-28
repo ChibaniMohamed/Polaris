@@ -21,7 +21,7 @@
 </p>
   <p align="center">
   
-  **Polaris is a system based on facial recognition with a futuristic GUI design, Can easily find people informations stored in a database using their pictures .***
+  **Polaris is a system based on facial recognition with a futuristic GUI design, Can easily find people informations stored in a database using their pictures .**
   </p>
   
   ## Functionality Supported :
