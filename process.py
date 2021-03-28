@@ -1,17 +1,6 @@
-# -*- coding: utf-8 -*-
-
-
-#      WIR SIND HIER !!!
-#  WAS MUSSEN WIR MACHEN ??
-#     ERROR HANDLING
-#         POPUPs
-#      SAUBEREN CODE
-
-
 import face_recognition as frc
 import os
 import cv2
-import matplotlib.pyplot as plt
 import numpy as np
 from PIL import *
 import json
@@ -59,7 +48,7 @@ def start(path):
   (x,y,w,h) = faces
 
  loading = loading + 20
-
+ #Box around the face
  if len(face) == 1 :
 
      back = Image.open(path)
@@ -163,7 +152,7 @@ def start(path):
 
  return face_errors
 
-
+#Compare the face encodings
 def search(inp):
  global id_name
  id_name = []
@@ -180,7 +169,6 @@ def search(inp):
   start = time.time()
 
   for np_enc in os.listdir(f"./data/{files}/"):
-      #final = time.time() - start
       if np_enc == "enc.npy":
 
        enc2 = np.load(f"./data/{files}/enc.npy")
@@ -192,7 +180,7 @@ def search(inp):
   time_tk.append(final)
 
 
-#Create id
+#Create the Id Card
 def id_card():
  try:
   
