@@ -195,7 +195,7 @@ def search(inp):
 #Create id
 def id_card():
  try:
-  im1 = Image.open("./src/images/test.jpg")
+  
   id = Image.open("./data/"+str(id_name[0])+"/"+str(id_name[0])+".jpg").convert("RGBA").resize((200,200))
   id_b = Image.open("./src/images/imageedit_3_5670490135.png")
   id_b = id_b.resize((132,142))

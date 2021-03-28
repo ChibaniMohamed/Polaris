@@ -6,8 +6,8 @@ class Ui_self(object):
         SplashScreen.resize(640, 480)
         self.wid = QtWidgets.QFrame(SplashScreen)
         self.wid.setGeometry(QtCore.QRect(0, 0, 640, 480))
-        self.wid.setStyleSheet("border-image:url('../imageedit_3_5119994519.jpg')")
-        id = QtGui.QFontDatabase.addApplicationFont("../anurati_font/Anurati-Regular.otf")
+        self.wid.setStyleSheet("border-image:url('./src/images/19604.jpg')")
+        id = QtGui.QFontDatabase.addApplicationFont("./src/fonts/Anurati-Regular.otf")
         fontstr = QtGui.QFontDatabase.applicationFontFamilies(id)[0]
         font1 = QtGui.QFont(fontstr)
         font = QtGui.QFont(fontstr)
