@@ -595,7 +595,7 @@ class Ui_MainWindow(object):
             face = frc.face_locations(input1,model="hog")
             enc = frc.face_encodings(input1,face)
             jdict = {"name":str(first_name)+" "+str(last_name),"dob":str(day)+"."+str(month)+"."+str(year),
-            "cc":str(country)+"/"+str(city),"gen":gender,"cit":num_1,"job":job,"phone_n1":num_1,"phone_n2":num_2,"job_loc":work_location,"addr":addr,"email":email}
+            "cc":str(country)+"/"+str(city),"gen":gender,"job":job,"phone_n1":num_1,"phone_n2":num_2,"job_loc":work_location,"addr":addr,"email":email}
             res = json.dumps(jdict)
             name = str(first_name)+" "+str(last_name)
             os.mkdir(f"./data/{name}")
