@@ -71,7 +71,7 @@ pip install face_recognition
 ```
 git clone https://github.com/ChibaniMohamed/Polaris.git
 
-cd polaris/
+cd Polaris/
 
 python main.py
 ```
