@@ -201,7 +201,6 @@ def id_card():
   draw.text((int(w2/2.35),int((h2/5)+45)),"D.O.B : "+str(data['dob']),(153, 242, 255),font=font)
   draw.text((int(w2/2.35),int((h2/5)+75)),"Country/City: "+str(data['cc']),(153, 242, 255),font=font)
   draw.text((int(w2/2.35),int((h2/5)+105)),"Gender : "+str(data['gen']) ,(153, 242, 255),font=font)
-  draw.text((int(w2/5),int((h2/5)+145)),"Citizenship : "+str(data['cit']) ,(153, 242, 255),font=font2)
   draw.text((int(w2/5),int((h2/5)+170)),"Job : "+str(data['job']) ,(153, 242, 255),font=font2)
   draw.text((int(w2/5),int((h2/5)+195)),"Work location : "+str(data['job_loc']) ,(153, 242, 255),font=font2)
   draw.text((int(w2/5),int((h2/5)+220)),"Phone number 1 : "+str(data['phone_n1']) ,(153, 242, 255),font=font2)
