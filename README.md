@@ -11,11 +11,11 @@
 </p>
 <p align="center">
   
-## Support Me
+## Support Me 🚀
 <a href="https://paypal.me/chibanimohamed"><img width="280" height="100" src="https://github.com/ChibaniMohamed/polaris/blob/main/paypal-donate-button.png"></a>
 </p>
 
-## About Polaris
+## About Polaris 📄
 <p align="center">
   <img width="880" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/polaris_main.PNG">
 </p>
@@ -24,7 +24,7 @@
   **Polaris is a system based on facial recognition with a futuristic GUI design, Can easily find people informations stored in a database using their pictures .**
   </p>
   
-  ## Functionality Supported :
+  ## Functionality Supported 📌 :
   
   - **Register new people :**
   
@@ -38,12 +38,13 @@
   <img width="880" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/polaris_elon.png">
 </p>
 
-## Built Using
+## Built Using 🔧
 - **PyQt5** - PyQt5 is a Python binding of the cross-platform GUI toolkit Qt
 - **OpenCV** - Open Source Computer Vision and Machine Learning software library
 - **Dlib** - C++ Library containing Machine Learning Algorithms
 - **face_recognition** by Adam Geitgey 
-## How to use
+
+## How to use 🔨
 - First of all we have to install all the required libraries .
 
 - **PyQt5** :
@@ -70,7 +71,7 @@ pip install numpy
 pip install face_recognition
 ```
 
-- Then, Clone the repository and run the program .
+- Then, Clone the repository and run the program 💻
 ```
 git clone https://github.com/ChibaniMohamed/Polaris.git
 
@@ -78,8 +79,11 @@ cd Polaris/
 
 python main.py
 ```
+
+## Contributing 💡
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are greatly appreciated.
 <p align="center">
   
-## Support Me
+## Support Me 🚀
 <a href="https://paypal.me/chibanimohamed"><img width="280" height="100" src="https://github.com/ChibaniMohamed/polaris/blob/main/paypal-donate-button.png"></a>
 </p>
