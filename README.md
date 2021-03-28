@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="680" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/pol.jpg">
+  <img width="750" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/pol.jpg">
 </p>
 <p align="center">
    <img src="https://img.shields.io/badge/Dev-XN3UR0N-green?style=for-the-badge"/>
@@ -17,7 +17,7 @@
 
 ## About Polaris
 <p align="center">
-  <img width="780" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/polaris_main.PNG">
+  <img width="880" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/polaris_main.PNG">
 </p>
   <p align="center">Polaris is a system based on facial recognition with a futuristic GUI design, Can easily find people informations stored in a database using their pictures .</p>
   
@@ -26,13 +26,13 @@
   - **Register new people :**
   
   <p align="center">
-  <img width="780" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/polaris_form.PNG">
+  <img width="880" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/polaris_form.PNG">
 </p>
   
   - **Search for people using their pictures :**
   
   <p align="center">
-  <img width="780" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/polaris_elon.png">
+  <img width="880" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/polaris_elon.png">
 </p>
 
 ## Built Using
