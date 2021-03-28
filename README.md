@@ -19,7 +19,10 @@
 <p align="center">
   <img width="880" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/polaris_main.PNG">
 </p>
-  <p align="center">Polaris is a system based on facial recognition with a futuristic GUI design, Can easily find people informations stored in a database using their pictures .</p>
+  <p align="center">
+  
+  **Polaris is a system based on facial recognition with a futuristic GUI design, Can easily find people informations stored in a database using their pictures .***
+  </p>
   
   ## Functionality Supported :
   
