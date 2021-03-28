@@ -70,7 +70,10 @@ pip install numpy
 ```
 pip install face_recognition
 ```
-
+- **PIL** :
+```
+pip install pillow
+```
 - Then, Clone the repository and run the program 💻
 ```
 git clone https://github.com/ChibaniMohamed/Polaris.git
