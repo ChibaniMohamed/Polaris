@@ -1,15 +1,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-import start
+import process
 from threading import Thread
 import time
-from start import loading,time_tk,limite
+from process import loading,time_tk,limite
 import json
 from PIL import *
 import os
 import face_recognition as frc
 import numpy as np
-#import sass
+
+#Setting up the load class
 limite = 100
 class External(QtCore.QThread):
     signal = QtCore.pyqtSignal(int)
@@ -27,16 +28,10 @@ class External(QtCore.QThread):
 
 
         count = 0
-        while count < start.limite:
-
-            #print("count : ",count)
-            #print("limite : ",start.limite)
-            #print("time list : ",start.time_tk)
-            #print("time taken : ",start.time_tk[count])
-
-            time.sleep(start.time_tk[count])
+        while count < process.limite:
+            time.sleep(process.time_tk[count])
             count +=1
-            self.signal_.emit((count/start.limite)*100)
+            self.signal_.emit((count/process.limite)*100)
 
 
 class Ui_MainWindow(object):
@@ -67,7 +62,6 @@ class Ui_MainWindow(object):
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, 1400,720))
 
         self.tabWidget.setObjectName("tabWidget")
-        #self.tabWidget.setStyleSheet("QTabBar::tab {;color:white} QTabBar::tab:selected {background-color:rgba(0,255,255,0.8);}")
         self.tabWidget.setStyleSheet("QTabBar::tab {padding:5px;background-color:rgba(0,255,255,0.2);border:0.5px solid rgb(99, 255, 255);color:rgb(99, 255, 255)} QTabBar::tab:selected {background-color:rgba(0,255,255,0.4)}")
         self.tabWidget.setFont(tab_font)
         self.shadow_tab = QtWidgets.QGraphicsDropShadowEffect(self.tabWidget,blurRadius=20,xOffset=1,yOffset=1,color=QtGui.QColor(99, 255, 255))
@@ -96,7 +90,6 @@ class Ui_MainWindow(object):
 
 
 
-        #self.page1.setLayout(self.page1Layout)
 
         id = QtGui.QFontDatabase.addApplicationFont("./src/fonts/neuropolitical rg.ttf")
         fontstr = QtGui.QFontDatabase.applicationFontFamilies(id)[0]
@@ -331,7 +324,6 @@ class Ui_MainWindow(object):
         self.label_noinfo.setGraphicsEffect(self.shadow_frame2_)
 
         self.label_err_face = QtWidgets.QLabel(self.lab)
-        #self.label_err_face.setGeometry(QtCore.QRect(160,70,350,200))
         self.label_err_face.setObjectName("label_err_face")
         self.label_err_face.setText("")
         self.label_err_face.setStyleSheet("#label_err_face{background:transparent;color:rgba(255, 28, 51,0.9)}")
@@ -370,7 +362,6 @@ class Ui_MainWindow(object):
         self.alert_err.setFrameShadow(QtWidgets.QFrame.Raised)
 
         self.label_err = QtWidgets.QLabel(self.frame_err)
-        #self.label_err.setGeometry(QtCore.QRect(75, 80, 50, 50))
         self.label_err.setObjectName("label_err")
         self.label_err.setStyleSheet("#label_err{background:transparent;color:rgba(255, 28, 51,0.9)}")
 
@@ -418,8 +409,7 @@ class Ui_MainWindow(object):
         self.upload.setGraphicsEffect(self.shadow2)
         self.upload.clicked.connect(self.img_select)
 
-        #pix = QtGui.QPixmap('./imgs/abstract-flat-face-recognition-background_23-2148189720-removebg-preview.png')
-        #self.upload.setPixmap(pix)
+        
         self.upload2 = QtWidgets.QPushButton(self.tab_2)
         self.upload2.setEnabled(True)
         self.upload2.setGeometry(QtCore.QRect(480, 496, 120, 50))
@@ -467,7 +457,7 @@ class Ui_MainWindow(object):
         self.remove.setCheckable(False)
         self.remove.setObjectName("remove")
 
-       #git test
+       
 
 
 
@@ -498,14 +488,12 @@ class Ui_MainWindow(object):
        
 
         self.popup = QtWidgets.QFrame(self.tab_2)
-        #self.popup.setGeometry(QtCore.QRect(0,0,20,20))
         self.popup.setObjectName("popup")
         self.popup.setStyleSheet("#popup{background:transparent}")
         self.popup.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.popup.setFrameShadow(QtWidgets.QFrame.Raised)
 
         self.popup_remove = QtWidgets.QPushButton(self.popup)
-       # self.popup_remove.setGeometry(QtCore.QRect(0,0,0,0))
         self.popup_remove.setObjectName("popup_remove")
         self.popup_remove.setStyleSheet("#popup_remove{background:transparent}")
 
@@ -527,7 +515,6 @@ class Ui_MainWindow(object):
         
 
         self.popup_remove_input = QtWidgets.QPushButton(self.popup_error_input)
-        #self.popup_remove_input.setGeometry(QtCore.QRect(0,0,0,0))
         self.popup_remove_input.setObjectName("popup_remove_input")
         self.popup_remove_input.setStyleSheet("#popup_remove_input{background:transparent}")
 
@@ -775,7 +762,6 @@ class Ui_MainWindow(object):
 
         self.newStylesheet1 = self.styleSheet1.replace("{p11}", self.p11).replace("{p22}", self.p22)
         self.frame2.setStyleSheet(self.newStylesheet1)
-        #self.label_noinfo.setText("")
         self.frame_22.setStyleSheet(u"#frame_22{border-radius:109px;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.994318, stop:1 rgba(23, 65, 66, 200));}")
         self.frame_22.setGeometry(QtCore.QRect(5, 6, 221, 221))
         self.label2.setText(f"{value1} %")
@@ -788,7 +774,6 @@ class Ui_MainWindow(object):
         filters = "Image files (*.jpg *.png *jpeg)"
         path = None
         path = QtWidgets.QFileDialog.getOpenFileName(file_select,"Select an image","./",filters)
-        #self.reload
         if path != None and path[0] != "":
          img = QtGui.QImage(path[0])
          img_w = img.width()
@@ -935,7 +920,7 @@ class Ui_MainWindow(object):
             style = '''#upload{background-size:img_w img_h;background-image:url('./src/images/id.jpeg');}'''
             self.label_err_face.setText("")
             self.alert_err.setStyleSheet("#alert_err{background:transparent}")
-            start.load(path[0])
+            process.load(path[0])
             self.label_err.setText("")
 
             self.frame2.setGeometry(QtCore.QRect(1030, 370, 231, 231))
@@ -944,7 +929,7 @@ class Ui_MainWindow(object):
             self.frame2.setGraphicsEffect(self.shadow_frame2)
 
 
-            self.start_error = start.start(path[0])
+            self.start_error = process.start(path[0])
             if self.frame2.visibleRegion().isEmpty() and self.frame_22.visibleRegion().isEmpty():
                     
                     self.frame2.show()
@@ -958,8 +943,8 @@ class Ui_MainWindow(object):
                 self.lab.setGraphicsEffect(self.shadow_lab_red)
                 self.lab.setStyleSheet("#card{border-image:url('./src/images/id2_.png');}")
                 
-                start.search(path[0])
-                err_id = start.id_card()
+                process.search(path[0])
+                err_id = process.id_card()
                 time.sleep(0.5)
                 if err_id == False:
                         if not self.frame.visibleRegion().isEmpty() and not self.frame_22.visibleRegion().isEmpty() and not self.frame2.visibleRegion().isEmpty() and not self.frame_2.visibleRegion().isEmpty():
@@ -970,7 +955,6 @@ class Ui_MainWindow(object):
                         self.label_err_face.setText("")
                         self.popup_icon_err.setStyleSheet("#popup_icon_err{background:transparent;}")
                         self.frame.setStyleSheet(u"#frame{background:transparent}")
-                        #self.frame2.setStyleSheet(u"#frame2{background:transparent}")
                         self.frame_22.setStyleSheet(u"#frame_22{background:transparent}")
                         self.frame_2.setStyleSheet(u"#frame_2{background:transparent}")
                         self.alert_err.setStyleSheet("#alert_err{background:transparent}")
@@ -979,7 +963,6 @@ class Ui_MainWindow(object):
 
 
                         self.alert_err.setGeometry(QtCore.QRect(1070, 370, 150, 150))
-                        #self.label_face.setGeometry(QtCore.QRect(0,0,280,250))
                         self.label_err.setGeometry(QtCore.QRect(0,0,400,50))
                         self.label_err.setText("FACE DOESN'T EXIST")
                         self.label_noinfo.setText("")
