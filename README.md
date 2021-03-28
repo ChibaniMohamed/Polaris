@@ -74,7 +74,6 @@ git clone https://github.com/ChibaniMohamed/Polaris.git
 cd polaris/
 
 python main.py
-
 ```
 <p align="center">
   
