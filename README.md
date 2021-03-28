@@ -4,9 +4,9 @@
 <p align="center">
    <img src="https://img.shields.io/badge/Dev-XN3UR0N-green?style=for-the-badge"/>
    <img src="https://img.shields.io/badge/language-python-blue?style=for-the-badge"/>
-   <img src="https://img.shields.io/github/license/ChibaniMohamed/polaris?style=for-the-badge"/>
-   <img src="https://img.shields.io/github/stars/ChibaniMohamed/polaris?style=for-the-badge"/>
-   <img src="https://img.shields.io/github/forks/ChibaniMohamed/polaris?style=for-the-badge"/>
+   <img src="https://img.shields.io/github/license/ChibaniMohamed/Polaris?style=for-the-badge"/>
+   <img src="https://img.shields.io/github/stars/ChibaniMohamed/Polaris?style=for-the-badge"/>
+   <img src="https://img.shields.io/github/forks/ChibaniMohamed/Polaris?style=for-the-badge"/>
    <img src="https://visitor-badge.laobi.icu/badge?style=for-the-badge&page_id=ChibaniMohamed.Pretty-Readme">
 </p>
 <p align="center">
