@@ -1,18 +1,3 @@
-
-
-
-
-#      WIR SIND HIER !!!
-#  WAS MUSSEN WIR MACHEN ??
-#     ERROR HANDLING
-#         POPUPs
-#      SAUBEREN CODE
-
-
-
-
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 import start
