@@ -40,6 +40,42 @@
 - **OpenCV** - Open Source Computer Vision and Machine Learning software library
 - **Dlib** - C++ Library containing Machine Learning Algorithms
 - **face_recognition** by Adam Geitgey 
+## How to use
+- First of all we have to install all the required libraries.
+
+- **PyQt5** :
+
+```
+pip install PyQt5
+```
+
+- **OpenCV** :
+
+```
+pip install opencv-python
+```
+
+- **Numpy** :
+
+```
+pip install numpy
+```
+
+- **face_recognition** :
+
+```
+pip install face_recognition
+```
+
+- Then clone the repository and run the program .
+```
+git clone https://github.com/ChibaniMohamed/Polaris.git
+
+cd polaris/
+
+python main.py
+
+```
 <p align="center">
   
 ## Support Me
