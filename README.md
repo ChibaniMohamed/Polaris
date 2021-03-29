@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="750" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/imgs/pol.jpg">
+  <img width="680" height="480" src="https://github.com/ChibaniMohamed/polaris/blob/main/imgs/pol.jpg">
 </p>
 <p align="center">
    <img src="https://img.shields.io/badge/Dev-XN3UR0N-green?style=for-the-badge"/>
@@ -63,6 +63,12 @@ pip install opencv-python
 
 ```
 pip install numpy
+```
+
+- **Dlib** :
+
+```
+pip install dlib
 ```
 
 - **face_recognition** :
