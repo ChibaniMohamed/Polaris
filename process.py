@@ -1,3 +1,4 @@
+#new version soon
 import face_recognition as frc
 import os
 import cv2
